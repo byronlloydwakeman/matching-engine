@@ -10,12 +10,22 @@ public class MockOrderGenerator implements Runnable
     private final BlockingQueue<Command> queue;
     private final long ordersPerSecond;
     private final CommandFactory commandFactory;
+    private final long totalDuration;
 
-    public MockOrderGenerator( BlockingQueue<Command> queue, long ordersPerSecond, final CommandFactory commandFactory )
+    /**
+     * Constructor
+     *
+     * @param queue Blocking queue to hold generated command instances
+     * @param ordersPerSecond Number of orders to be generated in roughly one second
+     * @param commandFactory Command factory instance, should be not be shared among other MockOrderGenerators
+     * @param totalDuration Total duration to generate orders in seconds
+     */
+    public MockOrderGenerator( BlockingQueue<Command> queue, long ordersPerSecond, final CommandFactory commandFactory, long totalDuration )
     {
         this.queue = queue;
         this.ordersPerSecond = ordersPerSecond;
         this.commandFactory = commandFactory;
+        this.totalDuration = totalDuration;
     }
 
 
@@ -33,7 +43,7 @@ public class MockOrderGenerator implements Runnable
 
         try
         {
-            while ( !Thread.currentThread().isInterrupted() )
+            while ( !Thread.currentThread().isInterrupted() && System.nanoTime() - start < totalDuration * 1_000_000_000L )
             {
                 // Find the start time, like in a marathon when people start at interval times
                 long due = start + batchIntervalNanos * batchNumber;

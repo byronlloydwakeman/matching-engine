@@ -33,11 +33,14 @@ public class Main
             engineThread.start();
 
             AtomicLong idSource = new AtomicLong();
-            CommandFactory cf = new CommandFactory( new Random(), idSource );
 
             // Create the threads that produce the data input
             ExecutorService producers = Executors.newFixedThreadPool(4);
-            for (int i = 0; i < 4; i++) producers.submit(new MockOrderGenerator(queue, 1_000_000L, cf));
+            for (int i = 0; i < 4; i++)
+            {
+                CommandFactory cf = new CommandFactory( new Random(), idSource );
+                producers.submit(new MockOrderGenerator(queue, 1_000_000L, cf, 10));
+            }
 
             producers.shutdown();
             producers.awaitTermination(1, TimeUnit.MINUTES);
