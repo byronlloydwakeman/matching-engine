@@ -1,4 +1,3 @@
 package org.finance.command;
 
-public final class Cancel implements Command {
-}
+public record Cancel(long orderId, long enqueueNanos) implements Command {}

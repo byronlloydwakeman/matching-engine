@@ -28,7 +28,7 @@ Create an `OrderBook` and submit orders with `addOrder`. Prices are integer penc
 ```java
 import org.finance.Order;
 import org.finance.OrderBook;
-import org.finance.Trade;
+import org.finance.capture.Trade;
 import org.finance.TradeType;
 
 import java.util.List;
@@ -36,10 +36,10 @@ import java.util.List;
 OrderBook orderBook = new OrderBook();
 
 List<Trade> noTrades = orderBook.addOrder(
-        new Order(TradeType.BID, "bid-1", 101, 5));
+        new Order( TradeType.BID, "bid-1", 101, 5 ) );
 
 List<Trade> trades = orderBook.addOrder(
-        new Order(TradeType.ASK, "ask-1", 100, 3));
+        new Order( TradeType.ASK, "ask-1", 100, 3 ) );
 // One trade: price 101, quantity 3, bid ID "bid-1", ask ID "ask-1".
 // The remaining quantity of bid-1 stays in the order book.
 ```

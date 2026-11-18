@@ -285,10 +285,10 @@ public class OrderBookTest
         // Ask1 matches bid1
         // Returns 1 trade with bid1 price, min(bid1.quantity, ask1.quantity), ask1Id, bid1Id
         Assertions.assertEquals( 1, resultAsk5At101.size() );
-        Assertions.assertEquals( 101, resultAsk5At101.get( 0 ).getPrice() );
-        Assertions.assertEquals( 5, resultAsk5At101.get( 0 ).getQuantity() );
-        Assertions.assertEquals( "bid5At101", resultAsk5At101.get( 0 ).getBidId() );
-        Assertions.assertEquals( "ask5At101", resultAsk5At101.get( 0 ).getAskId() );
+        Assertions.assertEquals( 101, resultAsk5At101.get( 0 ).price() );
+        Assertions.assertEquals( 5, resultAsk5At101.get( 0 ).quantity() );
+        Assertions.assertEquals( "bid5At101", resultAsk5At101.get( 0 ).bidId() );
+        Assertions.assertEquals( "ask5At101", resultAsk5At101.get( 0 ).askId() );
 
         // bidOrderBook should be empty
         Assertions.assertTrue( orderBook.getBestBid().isEmpty() );
@@ -412,10 +412,10 @@ public class OrderBookTest
         // Match between bid1 and ask1, despite newer orders
         Assertions.assertEquals( 1, resultAsk5At101.size() );
         var match = resultAsk5At101.get( 0 );
-        Assertions.assertEquals( 101, match.getPrice() );
-        Assertions.assertEquals( 5, match.getQuantity() );
-        Assertions.assertEquals( "bid5At101", match.getBidId() );
-        Assertions.assertEquals( "ask5At100", match.getAskId() );
+        Assertions.assertEquals( 101, match.price() );
+        Assertions.assertEquals( 5, match.quantity() );
+        Assertions.assertEquals( "bid5At101", match.bidId() );
+        Assertions.assertEquals( "ask5At100", match.askId() );
 
         // Should only still have bid2
         Assertions.assertEquals( 1, orderBook.getBidOrderBookSize() );

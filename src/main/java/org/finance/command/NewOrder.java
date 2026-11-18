@@ -1,4 +1,5 @@
 package org.finance.command;
 
-public final class NewOrder implements Command {
-}
+import org.finance.TradeType;
+
+public record NewOrder(long orderId, TradeType tradeType, long priceInPence, long qty, long enqueueNanos) implements Command {}
